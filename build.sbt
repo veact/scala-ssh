@@ -49,8 +49,6 @@ crossScalaVersions := Seq("2.10.6", "2.11.8")
 
 publishMavenStyle := true
 
-useGpg := true
-
 publishTo <<= version { v: String =>
   val nexus = "https://oss.sonatype.org/"
   if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
