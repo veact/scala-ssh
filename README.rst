@@ -8,27 +8,29 @@ It builds on SSHJ_ to provide the following features:
 * Convenient configuration of remote host properties via config file, resource or directly in code
 * Scala-idiomatic API
 
+<!---
 .. image:: https://api.travis-ci.org/sirthias/scala-ssh.png?branch=master
    :target: https://travis-ci.org/sirthias/scala-ssh
    :alt: Build Status
+-->
 
 Installation
 ------------
 
-The latest release is **0.7.0** and is built against Scala 2.10 and Scala 2.11.
+The latest release is **0.8.0** and is built against Scala 2.10 and Scala 2.11.
 It is available from Maven Central. If you use SBT_ you can pull in the *scala-ssh* artifacts with::
 
-    libraryDependencies += "com.decodified" %% "scala-ssh" % "0.7.0"
+    libraryDependencies += "com.veact" %% "scala-ssh" % "0.8.0"
 
 SSHJ_ uses SLF4J_ for logging, so you might want to also add logback_ to your dependencies::
 
-    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.2"
+    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.7"
 
 Additionally, in many cases you will need the following two artifacts, which provide additional cypher and compression
 support::
 
     libraryDependencies ++= Seq(
-      "org.bouncycastle" % "bcprov-jdk16" % "1.46",
+      "org.bouncycastle" % "bcprov-jdk16" % "1.54",
       "com.jcraft" % "jzlib" % "1.1.3"
     )
 
@@ -201,3 +203,11 @@ Along with any patches, please state that the patch is your original work and th
 .. _SLF4J: http://www.slf4j.org/
 .. _logback: http://logback.qos.ch/
 .. _APL 2.0: http://www.apache.org/licenses/LICENSE-2.0
+
+
+Credits
+-------
+
+This project was originally created and maintained by [Mathias Doenitz](https://github.com/sirthias).
+
+

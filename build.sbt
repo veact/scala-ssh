@@ -2,33 +2,33 @@ import scalariform.formatter.preferences._
 
 name := "scala-ssh"
 
-version := "0.7.1-SNAPSHOT"
+version := "0.8.0"
 
-organization := "com.decodified"
+organization := "com.veact"
 
-organizationHomepage := Some(new URL("http://decodified.com"))
+organizationHomepage := Some(new URL("http://veact.com"))
 
 description := "A Scala library providing remote shell access via SSH"
 
-homepage := Some(new URL("https://github.com/sirthias/scala-ssh"))
+homepage := Some(new URL("https://github.com/veact/scala-ssh"))
 
 startYear := Some(2011)
 
 licenses := Seq("Apache 2" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.8"
 
 scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-unchecked", "-deprecation", "-encoding", "utf8")
 
 libraryDependencies ++= Seq(
-  "com.hierynomus" % "sshj" % "0.12.0",
-  "org.slf4j" % "slf4j-api" % "1.7.7",
-  "org.bouncycastle" % "bcprov-jdk15on" % "1.52" % "provided",
+  "com.hierynomus" % "sshj" % "0.16.0",
+  "org.slf4j" % "slf4j-api" % "1.7.21",
+  "org.bouncycastle" % "bcprov-jdk15on" % "1.54" % "provided",
   "com.jcraft" % "jzlib" % "1.1.3" % "provided",
-  "com.jcraft" % "jsch.agentproxy.sshj" % "0.0.8",
-  "com.jcraft" % "jsch.agentproxy.connector-factory" % "0.0.8",
-  "ch.qos.logback" % "logback-classic" % "1.1.2" % "test",
-  "org.specs2" %% "specs2" % "2.4.6" % "test")
+  "com.jcraft" % "jsch.agentproxy.sshj" % "0.0.9",
+  "com.jcraft" % "jsch.agentproxy.connector-factory" % "0.0.9",
+  "ch.qos.logback" % "logback-classic" % "1.1.7" % "test",
+  "org.specs2" %% "specs2" % "2.5" % "test")
 
 resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
 
@@ -45,7 +45,7 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
 // publishing
 ///////////////
 
-crossScalaVersions := Seq("2.10.6", "2.11.6")
+crossScalaVersions := Seq("2.10.6", "2.11.8")
 
 publishMavenStyle := true
 
@@ -61,12 +61,20 @@ pomIncludeRepository := { _ => false }
 
 pomExtra :=
   <scm>
-    <url>git@github.com:sirthias/scala-ssh.git</url>
-    <connection>scm:git:git@github.com:sirthias/scala-ssh.git</connection>
+    <url>git@github.com:veact/scala-ssh.git</url>
+    <connection>scm:git:git@github.com:veact/scala-ssh.git</connection>
   </scm>
   <developers>
     <developer>
       <id>sirthias</id>
       <name>Mathias Doenitz</name>
+    </developer>
+    <developer>
+      <id>laurentco</id>
+      <name>Laurent Comparet</name>
+    </developer>
+    <developer>
+      <id>bphelan</id>
+      <name>Benjamin Phelan</name>
     </developer>
   </developers>
