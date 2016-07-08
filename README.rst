@@ -25,7 +25,7 @@ Additionally, in many cases you will need the following two artifacts, which pro
 support::
 
     libraryDependencies ++= Seq(
-      "org.bouncycastle" % "bcprov-jdk16" % "1.54",
+      "org.bouncycastle" % "bcprov-jdk15on" % "1.54",
       "com.jcraft" % "jzlib" % "1.1.3"
     )
 
