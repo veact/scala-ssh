@@ -16,7 +16,7 @@
 
 package com.decodified.scalassh
 
-import java.io.File
+import java.io.InputStream
 
 sealed trait SshLogin {
   def user: String
@@ -37,6 +37,18 @@ object PublicKeyLogin {
     PublicKeyLogin(user, None, keyfileLocations.toList)
   def apply(user: String, passProducer: PasswordProducer, keyfileLocations: List[String]): PublicKeyLogin =
     PublicKeyLogin(user, Some(passProducer), keyfileLocations)
+}
+
+case class PublicKeyInputStreamLogin(
+  user: String,
+  passProducer: Option[PasswordProducer],
+  keyFileInputStreams: List[InputStream]) extends SshLogin
+
+object PublicKeyInputStreamLogin {
+  def apply(user: String, keyFileInputStreams: List[InputStream]): PublicKeyInputStreamLogin =
+    apply(user, None, keyFileInputStreams)
+  def apply(user: String, passProducer: PasswordProducer, keyFileInputStreams: List[InputStream]): PublicKeyInputStreamLogin =
+    apply(user, Some(passProducer), keyFileInputStreams)
 }
 
 case class AgentLogin(user: String, host: String) extends SshLogin

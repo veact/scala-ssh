@@ -86,7 +86,18 @@ class SshClient(val config: HostConfig) extends ScpTransferable {
   }
 
   protected def authenticate(client: SSHClient): Validated[SSHClient] = {
-    def keyProviders(locations: List[String], passProducer: PasswordProducer): List[KeyProvider] = {
+
+    def inputStreamKeyProviders(inputStreams: List[InputStream], passProducer: PasswordProducer): List[KeyProvider] = {
+      inputStreams.map { stream ⇒
+        val privateKey = Source.fromInputStream(stream).getLines().mkString("\n")
+        client.loadKeys(privateKey, null, passProducer)
+      } match {
+        case Nil ⇒ sys.error("None of the configured keyfiles exists: " + inputStreams.mkString(", "))
+        case x   ⇒ x
+      }
+    }
+
+    def fileLocationKeyProviders(locations: List[String], passProducer: PasswordProducer): List[KeyProvider] = {
       def inputStream(location: String): Option[InputStream] = {
         if (location.startsWith("classpath:")) {
           val resource = location.substring("classpath:".length)
@@ -97,15 +108,7 @@ class SshClient(val config: HostConfig) extends ScpTransferable {
           catch { case _: FileNotFoundException ⇒ None }
         }
       }
-      locations.flatMap { location ⇒
-        inputStream(location).map { stream ⇒
-          val privateKey = Source.fromInputStream(stream).getLines().mkString("\n")
-          client.loadKeys(privateKey, null, passProducer)
-        }
-      } match {
-        case Nil ⇒ sys.error("None of the configured keyfiles exists: " + locations.mkString(", "))
-        case x   ⇒ x
-      }
+      inputStreamKeyProviders(locations.flatMap(inputStream), passProducer)
     }
 
     def agentProxyAuthMethods = {
@@ -128,7 +131,12 @@ class SshClient(val config: HostConfig) extends ScpTransferable {
         }
       case PublicKeyLogin(user, passProducer, keyfileLocations) ⇒
         protect("Could not authenticate (with keyfile) to") {
-          client.authPublickey(user, keyProviders(keyfileLocations, passProducer.orNull): _*)
+          client.authPublickey(user, fileLocationKeyProviders(keyfileLocations, passProducer.orNull): _*)
+          client
+        }
+      case PublicKeyInputStreamLogin(user, passProducer, keyfileInputStreams) ⇒
+        protect("Could not authenticate (with keyfile) to") {
+          client.authPublickey(user, inputStreamKeyProviders(keyfileInputStreams, passProducer.orNull): _*)
           client
         }
       case AgentLogin(user, host) ⇒
