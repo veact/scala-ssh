@@ -28,9 +28,7 @@ libraryDependencies ++= Seq(
   "com.jcraft" % "jsch.agentproxy.sshj" % "0.0.9",
   "com.jcraft" % "jsch.agentproxy.connector-factory" % "0.0.9",
   "ch.qos.logback" % "logback-classic" % "1.1.7" % "test",
-  "org.specs2" %% "specs2" % "2.5" % "test")
-
-resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
+  "org.specs2" %% "specs2-core" % "3.8.6" % "test")
 
 scalariformSettings
 
