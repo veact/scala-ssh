@@ -10,3 +10,8 @@ jdk:
 
 before_script:
   - sh src/test/resources/setup_travis.sh
+
+matrix:
+  include:
+  - scala: 2.12.0
+    jdk: oraclejdk8
