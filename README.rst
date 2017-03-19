@@ -176,6 +176,7 @@ encounter exceptions like this:
             at net.schmizz.sshj.common.KeyType$3.readPubKeyFromBuffer(KeyType.java:144) ~[sshj-0.12.0.jar:na]
             ... 7 common frames omitted
 
+On OSX with homebrew, you can install JCE by running :code:`brew cask install jce-unlimited-strength-policy`.
 
 License
 -------
